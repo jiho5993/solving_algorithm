@@ -13,3 +13,5 @@ input.txt
 output.txt
 
 .DS_Store
+
+.vscode/
