@@ -8,6 +8,14 @@ using namespace std;
 typedef long long ll;
 const ll MOD = 1e9+7;
 
+ll fast_pow(ll a, ll b) {
+  if(b == 0) return 1;
+  ll n = fast_pow(a, b/2);
+  ll tmp = (n*n)%MOD;
+  if(b&1) return (a*tmp)%MOD;
+  else return tmp%MOD;
+}
+
 int main() {
   ios_base::sync_with_stdio(false), cin.tie(0);
 
@@ -15,13 +23,8 @@ int main() {
   ll ret=0;
   while(N--) {
     ll x, y; cin >> x >> y;
-    ll a=1, b=2, c=y-1;
-    while(c) {
-      if(c&1) a = (a*b)%MOD;
-      b = (b*b)%MOD;
-      c /= 2;
-    }
-    if(y) ret = (ret+((x*y)%MOD)*a)%MOD;
+    if(y == 0) continue;
+    ret = (ret + ((x*y)%MOD) * fast_pow(2, y-1))%MOD;
   }
   cout << ret;
 
