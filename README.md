@@ -41,4 +41,5 @@
     Code Runner
     Korean Language Pack for Visual Studio Code
     Monokai Pro
+    * settings sync
 </code></pre>
