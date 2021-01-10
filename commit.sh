@@ -13,7 +13,7 @@ programmers() {
     message="Programmers.$1"
 }
 
-if [ "$1" = "boj" ]
+if [ "$1" = "b" ]
 then
     if [ "$2" = "" ] || [ "$3" = "" ]
     then
@@ -22,7 +22,7 @@ then
         boj "$2" "$3"
         flag=1
     fi
-elif [ "$1" = "programmers" ]
+elif [ "$1" = "p" ]
 then
     if [ "$2" = "" ]
     then
