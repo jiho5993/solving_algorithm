@@ -1,46 +1,49 @@
 #!/bin/sh
-# BOJ : ./commit.sh boj "$2" "$3"
-# Programmers : ./commit.sh programmers "$2"
+# BOJ : ./commit.sh b "$2" "$3"
+# Programmers : ./commit.sh p "$2"
 
+date=$(date '+%y_%m_%d')
 message=""
 flag=0
 
 boj() {
-    message="BOJ_$1.$2"
+    message="BOJ_$1_$date"
 }
 
 programmers() {
-    message="Programmers.$1"
+    message="PROGMS_$1($2)_$date"
 }
 
 if [ "$1" = "b" ]
 then
-    if [ "$2" = "" ] || [ "$3" = "" ]
+    if [ "$2" = "" ]
     then
-        message="error: must have 2 args"
+        message="usage: ./commit.sh b <problem_name>"
     else
-        boj "$2" "$3"
+        boj "$2"
         flag=1
     fi
 elif [ "$1" = "p" ]
 then
-    if [ "$2" = "" ]
+    if [ "$2" = "" ] || [ "$3" = "" ]
     then
-        message="error: must have 1 args"
+        message="usage: ./commit.sh p <problem_name> <extension>"
     else
-        programmers "$2"
+        programmers "$2" "$3"
         flag=1
     fi
 else
-    message="error: none type (boj, programmers)"
+    message="usage: ./commit.sh <b|p> <problem_name> [<extension>]"
 fi
 
 if [ $flag -eq 0 ]
 then
-    echo "$message"
-    exit 2
+    # print error message with red color
+    echo "\033[31m$message\033[0m"
+    exit 1
 else
     git add .
     git commit -m "$message"
-    git push -u origin master
+    echo "Successfully committed with message: $message"
+    exit 0
 fi
